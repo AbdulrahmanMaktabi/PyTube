@@ -3,11 +3,7 @@ from pytube import Playlist
 from os import system , name
 import math
 
-def clear():
-	if name == 'nt':
-		_ = system('cls')
-	else :
-		_ = system('clear')
+
 def finish():
 	print("Download Done!")
 
@@ -22,41 +18,44 @@ def Draw():
 	print ("		           V 1.0						 		   ")
 	print ("		           								 		   ")
 
+def clear():
+	if name == 'nt':
+		_ = system('cls')
+	else :
+		_ = system('clear')
+
+def Clear_Draw():
+    clear()
+    Draw()
+
 def Download_Video():
-	clear()
-	Draw()
+	Clear_Draw()
 
 	link = input("Enter The Url: ")
 	path = input("Enter The Path: ")
-	clear()
-	Draw()
+	Clear_Draw()
 	video = YouTube(link)
 	print(f"\nVideo Titel is ===> \"{video.title}\"")
 	print(f"\nVideo Duration is ===> \"{math.ceil(video.length/60)} minute\"")
 	video.streams.get_highest_resolution().download(output_path=path)
-	clear()
-	Draw()
+	Clear_Draw()
 
 	video.register_on_complete_callback(finish())
 
 def Download_PlayList():
-	clear()
-	Draw()
+	Clear_Draw()
 
 	playlist_link = input("Enter The Url: ")
 	playlist_path = input("Enter The Path: ")
 	playlist = Playlist(playlist_link)
-	clear()
-	Draw()
+	Clear_Draw()
 	for v in playlist.videos:
 		v.streams.get_highest_resolution().download(output_path=playlist_path)
 	playlist.register_on_complete_callback(finish())
 	finish()
 
 
-clear()
-Draw()
-
+Clear_Draw()
 print("-1- Download Video")
 print("-2- Download Play List")
 print("-3- Exit")
